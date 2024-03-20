@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+
+</head>
+<body>
+<span style="padding-left: 12px;padding-right: 12px;padding-top: 6px;padding-bottom: 6px;border: 1px solid gainsboro;border-radius: 8px;" onclick="initSdk()">初始化sdk</span>
+<span style="padding-left: 12px;padding-right: 12px;padding-top: 6px;padding-bottom: 6px;border: 1px solid gainsboro;border-radius: 8px;" onclick="af_login()">登录事件</span>
+<span style="padding-left: 12px;padding-right: 12px;padding-top: 6px;padding-bottom: 6px;border: 1px solid gainsboro;border-radius: 8px;"onclick="af_complete_registration()">注册事件</span>
+<span style="padding-left: 12px;padding-right: 12px;padding-top: 6px;padding-bottom: 6px;border: 1px solid gainsboro;border-radius: 8px;" onclick="af_purchase()">充值事件</span>
+<span style="padding-left: 12px;padding-right: 12px;padding-top: 6px;padding-bottom: 6px;border: 1px solid gainsboro;border-radius: 8px;" onclick="af_other()">其他事件</span>
+<input type="file" accept="image/*">
+</body>
+<script type="text/javascript">
+	//初始化SDK,当H5页面加载完毕调用此方法
+	function initSdk() {
+		//与安卓交互调用方法
+		window.Android.hideImage();
+
+		//与IOS交互调用方法
+		window.webkit.messageHandlers.initEvent.postMessage('1225');
+     }
+	 
+	 setTime();
+	 //登录操作时调用此方法用来记录用户登录行为
+	 //其中方法中的value可以传123
+	 function af_login() {
+		var value = "{'aa':'a','bb':'b'}"
+		//与安卓交互调用方法
+	 	window.eventLog.af_login(value);
+		//与IOS交互调用方法
+		window.webkit.messageHandlers.af_login.postMessage(value);
+	  }
+	  //注册操作时调用此方法用来记录用户注册行为
+	  //其中方法中的value可以传123
+	  function af_complete_registration() {
+	  	var value = "{'aa':'a','bb':'b'}"
+		//与安卓交互调用方法
+	  	window.eventLog.af_complete_registration(value);
+		//与IOS交互调用方法
+		window.webkit.messageHandlers.af_complete_registration.postMessage(value);
+
+	   }
+	   //充值购买操作时调用此方法用来记录用户充值购买行为
+	   //其中方法中的value可以传123
+	   function af_purchase() {
+	   	var value = "{'aa':'a','bb':'b'}"
+		//与安卓交互调用方法
+	   	window.eventLog.af_purchase(value);
+		//与IOS交互调用方法
+		window.webkit.messageHandlers.af_purchase.postMessage(value);
+	}
+		//其他行为，备用
+		function af_other(){
+		//与安卓交互调用方法
+		window.eventLog.af_other("123");
+		//与IOS交互调用方法
+	    window.webkit.messageHandlers.af_other.postMessage(value);
+
+	}
+    function setTime(){
+		var timerId = setTimeout(function () {
+		    initSdk()
+		    clearTimeout(timerId);
+		}, 6000);
+	}
+</script>
+</html>
